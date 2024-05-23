@@ -22,7 +22,7 @@ Usage :
         Parallelmegablast.pl [option] [fasta file]
 
 [-t]       Thread (CPU), default = 2.
-[-o]       Output file name, default = zotus.rdp
+[-o]       Output file name, default = lowconf.megablast.
 [-h]       Show this help message.
 
 
