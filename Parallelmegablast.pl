@@ -4,11 +4,14 @@ use strict;
 use Getopt::Long;
 use threads;
 use experimental qw(signatures);    # disable complex warning 
+use Time::HiRes qw(gettimeofday tv_interval);  # catch program running timeuse Time::HiRes qw(gettimeofday tv_interval);
 
 # set parameter 
 my $thread = 2;
 my $help = 0;
 my $out = "lowconf.megablast";
+my $start_time = [gettimeofday];
+
 GetOptions(
     "t=s" => \$thread,
     "o=s" => \$out,
@@ -59,6 +62,9 @@ while ($thread_cnt) {
 	sleep(20);
 	my $re = qq(find . -type f -name 'blast_out*' -exec sh -c 'echo -n "{} "; grep "Query= Zotu" "{}" | wc -l' \\;);
 	system ($re);
+	my $end_time = [gettimeofday];
+	my $execution_time = tv_interval($start_time, $end_time);
+	print "Running time : $execution_time s\n";
 	# print "\tRemaining threads: $thread_cnt\n";
 }
 
